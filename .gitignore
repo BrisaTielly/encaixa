@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.local
+
+# Original classroom material, intentionally kept outside the public repository.
+/AlgoritmoGenetico.pdf
+/app.js
+/style.css
+/js/
+/grade/
+
