@@ -2,6 +2,7 @@
   "name": "encaixa",
   "private": true,
   "version": "0.1.0",
+  "description": "Planejador de graduação orientado por algoritmo genético.",
   "type": "module",
   "scripts": {
     "dev": "vite",
