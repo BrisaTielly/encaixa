@@ -61,3 +61,8 @@ O projeto pode ser importado diretamente na Vercel usando o preset do Vite. O co
 ## Licença
 
 Distribuído sob a licença MIT.
+
+
+## Demonstração
+
+[Acessar o Encaixa](https://encaixa-dev.vercel.app/)
