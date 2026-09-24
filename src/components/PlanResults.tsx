@@ -49,7 +49,7 @@ function PlanResults({ result, status }: PlanResultsProps) {
   return (
     <section className="results-section" aria-live="polite">
       <div className="results-heading">
-        <div><p className="step-label">Resultado</p><h2>Uma rota possível</h2></div>
+        <div><h2>Uma rota possível</h2></div>
         {result && <button className="copy-button" type="button" onClick={copyPlan}>{copied ? 'Plano copiado' : 'Copiar plano'}</button>}
       </div>
 

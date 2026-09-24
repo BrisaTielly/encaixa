@@ -15,7 +15,6 @@ function SettingsPanel({ settings, onChange, running, onRun }: SettingsPanelProp
   return (
     <aside className="settings-panel">
       <div>
-        <p className="step-label">Preferências</p>
         <h2>Como deve ser o plano?</h2>
       </div>
 

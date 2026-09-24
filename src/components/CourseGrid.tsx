@@ -30,7 +30,6 @@ function CourseGrid({ courses, completed, onToggle, onTogglePeriod, onMarkUntil,
     <section className="courses-section">
       <div className="section-heading">
         <div>
-          <p className="step-label">Disciplinas concluídas</p>
           <h2>O que você já pagou?</h2>
         </div>
         <div className="course-actions">

@@ -113,7 +113,9 @@ function App() {
   const stopOptimization = () => {
     runId.current += 1
     setRunning(false)
-    setStatus('Otimização interrompida. Mantivemos o melhor plano encontrado.')
+    const message = 'Otimização interrompida. Mantivemos o melhor plano encontrado.'
+    setStatus(message)
+    setResult((current) => current ? { ...current, message } : current)
   }
 
   const startOptimization = () => {
@@ -124,11 +126,11 @@ function App() {
     }
 
     const problem = buildProblem(CURRICULUM, completed, {
-      maxHours: settings.maxHours,
-      horizon: settings.horizon,
+      maxHours: Math.min(720, Math.max(240, settings.maxHours || 420)),
+      horizon: Math.min(30, Math.max(2, settings.horizon || 14)),
       respectOffering: settings.respectOffering,
       startTerm: start.term,
-      balanceWeight: settings.balanceWeight,
+      balanceWeight: Math.min(5, Math.max(0, settings.balanceWeight || 0)),
     })
 
     if (problem.size === 0) {
@@ -138,9 +140,9 @@ function App() {
     }
 
     const algorithm = createGeneticAlgorithm(problem, {
-      populationSize: settings.populationSize,
+      populationSize: Math.min(500, Math.max(20, settings.populationSize || 150)),
       crossoverRate: 0.9,
-      mutationRate: settings.mutationRate,
+      mutationRate: Math.min(0.5, Math.max(0, settings.mutationRate || 0)),
       elitism: 2,
       tournamentSize: 3,
     }, createSeededRandom(Date.now()))
@@ -156,7 +158,8 @@ function App() {
     let bestCost = Number.POSITIVE_INFINITY
     let bestGenes: number[] = []
     const history: number[] = []
-    const stagnationLimit = Math.min(200, settings.maxGenerations)
+    const maxGenerations = Math.min(2000, Math.max(50, settings.maxGenerations || 600))
+    const stagnationLimit = Math.min(200, maxGenerations)
 
     const publishResult = (message: string) => {
       if (!bestGenes.length) return
@@ -175,7 +178,7 @@ function App() {
 
     const frame = () => {
       if (runId.current !== currentRun) return
-      for (let batch = 0; batch < 8 && generation < settings.maxGenerations; batch += 1) {
+      for (let batch = 0; batch < 8 && generation < maxGenerations; batch += 1) {
         const current = algorithm.step()
         generation = current.generation
         if (current.cost < bestCost) {
@@ -189,7 +192,7 @@ function App() {
 
       if (generation % 40 === 0) publishResult(`Analisando a geração ${generation}...`)
 
-      const finished = generation >= settings.maxGenerations
+      const finished = generation >= maxGenerations
         || generation - lastImprovement >= stagnationLimit
       if (finished) {
         setRunning(false)
